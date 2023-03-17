@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Quiz Game | Daling Shi</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    >
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div class="container">
+      <h1>Quiz Game</h1>
+      <div id="question"></div>
+      <textarea id="answer"></textarea>
+
+      <div class="row">
+        <button id="next_btn" class="btn btn-primary">Next</button>
+        <button id="submit_btn" class="btn btn-success">Submit</button>
+        <button id="restart_btn" class="btn btn-danger">Restart Quiz</button>
+      </div>
+
+      <ul id="resList" class="invisible">Answer List:</ul>
+      <div id="totalScore" class="invisible"></div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

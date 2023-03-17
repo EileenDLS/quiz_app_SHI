@@ -1,21 +1,17 @@
-{
-    "question":[
-        {
-            "text": "what is your my favorite color?",
-            "answer": "red",
-            "point": 2
-        },
-        {
-            "text": "what is your my favorite color?",
-            "answer": "red",
-            "point": 2
-        },
-        {
-            "text": "what does a function return by default if you do not use it?",
-            "answer": "undefined",
-            "point": 2
-        }
-    ]
-}
-
-  
+[
+  {
+    "question": "what is your my favorite color?",
+    "answer": "red",
+    "point": 2
+  },
+  {
+    "question": "What is a number between 1 and 3?",
+    "answer": "2",
+    "point": 2
+  },
+  {
+    "question": "what does a function return by default if you do not use it?",
+    "answer": "undefined",
+    "point": 2
+  }
+]
