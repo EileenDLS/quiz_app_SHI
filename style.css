@@ -1,3 +1,13 @@
+.check {
+    display: inline-block;
+    height: 25px;
+    width: 15px;
+    border-bottom: 4px solid #78b13f;
+    border-right: 4px solid #78b13f;
+    transform: rotate(45deg);
+    margin-left: 30px;
+    margin-bottom: 15px;
+}
 #totalScore{
     font-family: "Rocher";
     text-align: center;

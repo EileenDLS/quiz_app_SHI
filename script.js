@@ -5,30 +5,28 @@ $(document).ready(function () {
   let scoreList = [];
   let answerList = [];
 
-  $.getJSON("data.json", function (data) {
-    quizData = data;
-    showQuestion();
-  });
-
-  // async function startQuiz() {
-  //   try {
-  //     const data = await getData();
-  //     questions = data.questions;
-  //     console.log("q length", questions.length);
-  //     showQuestion();
-  //   } catch (error) {
-  //     console.error("There was a problem fetching the data:", error);
-  //   }
-  // }
-
-  // function getData() {
-  //   console.log("get data1");
-  //   return new Promise((resolve, reject) => {
-  //     $.getJSON("data.json")
-  //       .done((data) => resolve(data))
-  //       .fail((error) => reject(error));
-  //   });
-  // }
+  // use promise to deal with the quiz data loading
+  function getData() {
+    return new Promise((resolve, reject) => {
+      // $.getJSON("data.json")
+      //   .done((data) => resolve(data))
+      //   .fail((error) => reject(error));
+        fetch("data.json")
+        .then(response => resolve(response.json()))
+        .catch(error => reject(error));
+    });
+  }
+  getData()
+    .then((data) => {
+      quizData = data;
+      showQuestion();
+    })
+    .catch((error) => {
+      console.log("Error: ", error);
+      // use Boostrap Alerts to show error message
+      let alert = document.getElementById("error_alert");
+      alert.style.display = "";
+    });
 
   function showQuestion() {
     $("#question").text(quizData[curQuestionIdx].question);
@@ -68,7 +66,15 @@ $(document).ready(function () {
 
   function checkAnswer() {
     let userAnswer = $("#answer").val();
-    answerList[curQuestionIdx] = userAnswer;
+
+    savePromise(curQuestionIdx, userAnswer)
+    .then((message) => {
+      console.log("Success: ", message);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+
     let correctAnswer = quizData[curQuestionIdx].answer;
     if (userAnswer === correctAnswer) {
       scoreList[curQuestionIdx] = quizData[curQuestionIdx].point;
@@ -78,6 +84,17 @@ $(document).ready(function () {
     }
   }
 
+  function savePromise(index, obj){
+    return new Promise((resolve, reject) => {
+      const timeOutId = setTimeout(() => {
+        reject(new Error("Unable to save answer within 3 seconds"));
+      }, 3000);
+      answerList[index] = obj;
+      clearTimeout(timeOutId);
+    })
+    
+  }
+  
   function showResult() {
     $("#question").text("");
     $("#answer").val("");
@@ -108,5 +125,4 @@ $(document).ready(function () {
       $("#resList").removeClass("invisible").addClass("visible");
     });
   }
-
 });
