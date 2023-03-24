@@ -1,4 +1,4 @@
-$(document).ready(function () {
+document.addEventListener("DOMContentLoaded", ()=> {
   let quizData;
   let curQuestionIdx = 0;
   let score = 0;
@@ -8,9 +8,6 @@ $(document).ready(function () {
   // use promise to deal with the quiz data loading
   function getData() {
     return new Promise((resolve, reject) => {
-      // $.getJSON("data.json")
-      //   .done((data) => resolve(data))
-      //   .fail((error) => reject(error));
         fetch("data.json")
         .then(response => resolve(response.json()))
         .catch(error => reject(error));
@@ -29,13 +26,14 @@ $(document).ready(function () {
     });
 
   function showQuestion() {
-    $("#question").text(quizData[curQuestionIdx].question);
-    $("#answer").val("");
+    document.getElementById("question").textContent = quizData[curQuestionIdx].question;
+    document.getElementById("answer").value = "";
   }
 
-  $("#next_btn").click(() => {
+  document.getElementById("next_btn").addEventListener("click", ()=>{
     checkAnswer();
     curQuestionIdx++;
+    document.getElementById("check").classList.add("invisible");
     if (curQuestionIdx < quizData.length) {
       showQuestion();
     } else {
@@ -45,7 +43,7 @@ $(document).ready(function () {
     }
   });
 
-  $("#submit_btn").click(() => {
+  document.getElementById("submit_btn").addEventListener("click", ()=>{
     //console.log("curidx", curQuestionIdx);
     if (curQuestionIdx === quizData.length - 1) {
       if (confirm("All done! do you want to submit?")) {
@@ -60,30 +58,21 @@ $(document).ready(function () {
     }
   });
 
-  $("#restart_btn").click(() => {
+  document.getElementById("restart_btn").addEventListener("click", ()=>{
     location.reload();
   });
 
-  function checkAnswer() {
+  document.getElementById("answer").addEventListener("input", () => {
     let userAnswer = $("#answer").val();
-
     savePromise(curQuestionIdx, userAnswer)
     .then((message) => {
       console.log("Success: ", message);
+      document.getElementById("check").classList.remove("invisible");
     })
     .catch((error) => {
       console.error(error);
     });
-
-    let correctAnswer = quizData[curQuestionIdx].answer;
-    if (userAnswer === correctAnswer) {
-      scoreList[curQuestionIdx] = quizData[curQuestionIdx].point;
-      console.log("score", scoreList);
-    } else {
-      scoreList[curQuestionIdx] = 0;
-    }
-  }
-
+  });
   function savePromise(index, obj){
     return new Promise((resolve, reject) => {
       const timeOutId = setTimeout(() => {
@@ -91,38 +80,48 @@ $(document).ready(function () {
       }, 3000);
       answerList[index] = obj;
       clearTimeout(timeOutId);
-    })
-    
+      resolve("Store successfully!");
+    });
+  }
+
+  function checkAnswer() {
+    let correctAnswer = quizData[curQuestionIdx].answer;
+    if (answerList[curQuestionIdx] === correctAnswer) {
+      scoreList[curQuestionIdx] = quizData[curQuestionIdx].point;
+      console.log("score", scoreList);
+    } else {
+      scoreList[curQuestionIdx] = 0;
+    }
   }
   
   function showResult() {
-    $("#question").text("");
-    $("#answer").val("");
+    document.getElementById("question").textContent = "";
+    document.getElementById("answer").value = "";
+    // $("#question").text("");
+    // $("#answer").val("");
     $.each(scoreList, (index, value) => {
-      let item = $(
-        "<li>" +
+      let liItem = document.createElement("li");
+      let item = document.createTextNode(
           "Q[" +
           (index + 1) +
           "] " +
           quizData[index].question +
-          "<br>" +
-          "Your answer: " +
+          "\nYour answer: " +
           answerList[index] +
-          "<br>" +
-          "Correct Answer: " +
+          "\nCorrect Answer: " +
           quizData[index].answer +
-          "<br>" +
+          "\n" + 
           "Your point: " +
-          value +
-          "</li>"
+          value
       );
       score += value;
-      $("#resList").append(item);
+      liItem.append(item);
+      document.getElementById("resList").appendChild(liItem);
       if (index === scoreList.length - 1) {
-        $("#totalScore").text("Your total point is: " + score);
-        $("#totalScore").removeClass("invisible").addClass("visible");
+        document.getElementById("totalScore").textContent = "Your total point is: " + score;
+        document.getElementById("totalScore").classList.remove("invisible");
       }
-      $("#resList").removeClass("invisible").addClass("visible");
+      document.getElementById("resList").classList.remove("invisible");
     });
   }
 });
