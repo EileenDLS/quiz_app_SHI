@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", ()=> {
     document.getElementById("question").textContent = quizData[curQuestionIdx].question;
     document.getElementById("answer").value = "";
   }
-
+  /* Bind to the next button here */
   document.getElementById("next_btn").addEventListener("click", ()=>{
     checkAnswer();
     curQuestionIdx++;
@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", ()=> {
       }
     }
   });
-
+  /* Bind to the submit button here */
   document.getElementById("submit_btn").addEventListener("click", ()=>{
     //console.log("curidx", curQuestionIdx);
     if (curQuestionIdx === quizData.length - 1) {
@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", ()=> {
       }
     }
   });
-
+  /* Bind to the restart button here */
   document.getElementById("restart_btn").addEventListener("click", ()=>{
     location.reload();
   });
@@ -97,26 +97,21 @@ document.addEventListener("DOMContentLoaded", ()=> {
   function showResult() {
     document.getElementById("question").textContent = "";
     document.getElementById("answer").value = "";
-    // $("#question").text("");
-    // $("#answer").val("");
-    $.each(scoreList, (index, value) => {
+    scoreList.forEach((index, value) => {
       let liItem = document.createElement("li");
-      let item = document.createTextNode(
+      liItem.innerHTML = 
           "Q[" +
           (index + 1) +
           "] " +
           quizData[index].question +
-          "\nYour answer: " +
+          "<br>Your answer: " +
           answerList[index] +
-          "\nCorrect Answer: " +
+          "<br>Correct Answer: " +
           quizData[index].answer +
-          "\n" + 
-          "Your point: " +
-          value
-      );
-      score += value;
-      liItem.append(item);
+          "<br>Your point: " +
+          value;
       document.getElementById("resList").appendChild(liItem);
+      score += value;
       if (index === scoreList.length - 1) {
         document.getElementById("totalScore").textContent = "Your total point is: " + score;
         document.getElementById("totalScore").classList.remove("invisible");
