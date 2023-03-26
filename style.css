@@ -1,3 +1,7 @@
+textarea{
+  position: relative; 
+  left: 80px;
+}
 #tick {
   display: inline-block;
   height: 25px;
@@ -5,13 +9,14 @@
   border-bottom: 6px solid #78b13f;
   border-right: 6px solid #78b13f;
   transform: rotate(45deg);
-  margin-left: 30px;
+  position: relative;
+  left: 100px;
   margin-bottom: 15px;
 }
 #cross {
   display: inline-block;
   position: relative;
-  left: -30px;
+  left: 10px;
   height: 30px; 
   width: 30px; 
   flex-direction: column;
@@ -31,13 +36,25 @@
 #cross::after {
   transform: rotate(-45deg);
 }
-.text{
-  position: absolute;
-  left: 350px;
-  top: 100px;
+.text1{
+  position: relative;
+  left: 110px;
+  top: -20px;
   display: inline-block;
+  font-family: fantasy;
 }
-
+.text2{
+  position: relative;
+  left: 30px;
+  top: -20px;
+  display: inline-block;
+  font-family: fantasy;
+}
+ul{
+  margin-top: 50px;
+  text-align: center;
+  list-style-position: inside;
+}
 #totalScore {
   font-family: "Rocher";
   text-align: center;

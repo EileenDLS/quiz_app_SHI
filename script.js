@@ -28,10 +28,9 @@ document.addEventListener("DOMContentLoaded", () => {
       let alert = document.getElementById("error_alert");
       alert.style.display = "";
     });
-
+  // display question
   function showQuestion() {
-    document.getElementById("question").textContent =
-      quizData[curQuestionIdx].question;
+    document.getElementById("question").textContent = quizData[curQuestionIdx].question;
     document.getElementById("answer").value = "";
   }
   /* Bind to the next button here */
@@ -42,15 +41,20 @@ document.addEventListener("DOMContentLoaded", () => {
     if (curQuestionIdx < quizData.length) {
       showQuestion();
     } else {
-      if (confirm("All done! do you want to submit?")) {
-        showResult();
+      if(answerList.length === quizData.length){
+        if (confirm("All done! do you want to submit?")) {
+          showResult();
+        }
+      } else {
+        if (confirm("You don't complete all questions, still submit?")) {
+          showResult();
+        }
       }
     }
   });
   /* Bind to the submit button here */
   submitBtn.addEventListener("click", () => {
-    //console.log("curidx", curQuestionIdx);
-    if (curQuestionIdx === quizData.length - 1) {
+    if (answerList === quizData.length) {
       if (confirm("All done! do you want to submit?")) {
         checkAnswer();
         showResult();
@@ -66,7 +70,6 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("restart_btn").addEventListener("click", () => {
     location.reload();
   });
-
   // user input answer, and use a promise check whether store successfully
   document.getElementById("answer").addEventListener("input", () => {
     const storePromise = new Promise((_, reject) => {
@@ -77,7 +80,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const waitInput = () => {
       return new Promise((resolve, reject) => {
         const userAnswer = $("#answer").val();
-        console.log(userAnswer);
         if (userAnswer) {
           answerList[curQuestionIdx] = userAnswer;
           console.log(answerList);
@@ -102,7 +104,7 @@ document.addEventListener("DOMContentLoaded", () => {
         submitBtn.disabled = true;
       });
   });
-
+  // check answer
   function checkAnswer() {
     let correctAnswer = quizData[curQuestionIdx].answer;
     if (answerList[curQuestionIdx] === correctAnswer) {
@@ -112,7 +114,7 @@ document.addEventListener("DOMContentLoaded", () => {
       scoreList[curQuestionIdx] = 0;
     }
   }
-
+  // display result list
   function showResult() {
     document.getElementById("question").textContent = "";
     document.getElementById("answer").value = "";
