@@ -73,31 +73,28 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   // user input answer, and use a promise check whether store successfully
   document.getElementById("answer").addEventListener("input", () => {
-    const storePromise = new Promise((_, reject) => {
-      setTimeout(() => {
-        reject(new Error("Unable to save answer within 3 seconds"));
-      }, 3000);
-    });
-    const waitInput = () => {
-      return new Promise((resolve, reject) => {
-        const userAnswer = $("#answer").val();
-        if (userAnswer) {
-          answerList[curQuestionIdx] = userAnswer;
-          console.log(answerList);
-          resolve();
+    let userAnswer = $("#answer").val();
+    const storePromise = new Promise((resolve, reject) => {
+      setTimeout(() => {  // after 3 seconds, check whether store successfully
+        if (answerList.length === curQuestionIdx + 1) {
+          resolve("Save within 3 seconds!");
         } else {
-          reject(new Error("Invalid input!"));
+          reject(new Error("Unable to save answer within 3 seconds."));
         }
-      });
-    };
-    Promise.race([storePromise, waitInput()])
-      .then(() => {
+      }, 3000);
+      answerList[curQuestionIdx] = userAnswer; // try to store input into array
+      successSign.classList.add("invisible");  // every time change input, clear the check state
+      failSign.classList.add("invisible");
+    });
+    storePromise
+      .then((data) => {  // store successfully, show green tick
+        console.log(data);
         failSign.classList.add("invisible");
         nextBtn.disabled = false;
         submitBtn.disabled = false;
         successSign.classList.remove("invisible");
       })
-      .catch((error) => {
+      .catch((error) => {  // store failed, show red cross
         console.error("stroe failed", error.message);
         successSign.classList.add("invisible");
         failSign.classList.remove("invisible");
@@ -133,7 +130,8 @@ document.addEventListener("DOMContentLoaded", () => {
       document.getElementById("resList").appendChild(liItem);
       score += value;
     });
-    document.getElementById("totalScore").textContent = "Your total point is: " + score;
+    document.getElementById("totalScore").textContent =
+      "Your total point is: " + score;
     document.getElementById("result").classList.remove("invisible");
     successSign.classList.add("invisible");
     document.getElementById("question").textContent = "";
