@@ -30,7 +30,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   // display question
   function showQuestion() {
-    document.getElementById("question").textContent = quizData[curQuestionIdx].question;
+    document.getElementById("question").textContent =
+      quizData[curQuestionIdx].question;
     document.getElementById("answer").value = "";
   }
   /* Bind to the next button here */
@@ -41,7 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (curQuestionIdx < quizData.length) {
       showQuestion();
     } else {
-      if(answerList.length === quizData.length){
+      if (answerList.length === quizData.length) {
         if (confirm("All done! do you want to submit?")) {
           showResult();
         }
@@ -116,8 +117,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   // display result list
   function showResult() {
-    document.getElementById("question").textContent = "";
-    document.getElementById("answer").value = "";
     scoreList.forEach((value, index) => {
       let liItem = document.createElement("li");
       liItem.innerHTML =
@@ -133,16 +132,14 @@ document.addEventListener("DOMContentLoaded", () => {
         value;
       document.getElementById("resList").appendChild(liItem);
       score += value;
-      if (index === scoreList.length - 1) {
-        document.getElementById("totalScore").textContent =
-          "Your total point is: " + score;
-        document.getElementById("totalScore").classList.remove("invisible");
-      }
-      document.getElementById("resList").classList.remove("invisible");
-      successSign.classList.add("invisible");
-      document.getElementById("answer").disabled = true;
-      nextBtn.disabled = true;
-      submitBtn.disabled = true;
     });
+    document.getElementById("totalScore").textContent = "Your total point is: " + score;
+    document.getElementById("result").classList.remove("invisible");
+    successSign.classList.add("invisible");
+    document.getElementById("question").textContent = "";
+    document.getElementById("answer").value = "";
+    document.getElementById("answer").disabled = true;
+    nextBtn.disabled = true;
+    submitBtn.disabled = true;
   }
 });

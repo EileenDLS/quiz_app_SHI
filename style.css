@@ -51,7 +51,6 @@ textarea{
   font-family: fantasy;
 }
 ul{
-  margin-top: 50px;
   text-align: center;
   list-style-position: inside;
 }
@@ -59,7 +58,7 @@ ul{
   font-family: "Rocher";
   text-align: center;
   font-size: 50px;
-  height: 50vh;
+  height: 20vh;
   display: flex;
   flex-direction: column;
   align-items: center;

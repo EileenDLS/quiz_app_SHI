@@ -6,13 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="style.css" >
-    <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon"> 
   </head>
   <body>
     <div class="container" style="text-align: center;">
       <h1 style="font-family: fantasy;">Quiz Game</h1>
-      <h4 id="question"></h4>
-      <div class="row">
+      <div id="question" style="font-size: large;margin-bottom: 10px;"></div>
+      <div class="row" style="margin-bottom: 10px;">
         <textarea id="answer"></textarea>
         <div id="success" class="invisible" style="display: inline-block;">
           <div id="tick"></div>
@@ -29,10 +28,11 @@
         <button id="restart_btn" class="btn btn-danger">Restart Quiz</button>
       </div>
     </div>
-    <ul id="resList" class="invisible">
-      Answer List:
-    </ul>
-    <div id="totalScore" class="invisible"></div>
+    <div id="result" class="invisible">
+      <h4 style="text-align: center; margin-top: 50px;">Answer List</h4>
+      <ul id="resList"></ul>
+      <div id="totalScore"></div>
+    </div>
     <div id="error_alert" class="alert alert-danger" role="alert" style="display: none; text-align: center;">
       Error loading quiz data. Please try again later.
     </div>
