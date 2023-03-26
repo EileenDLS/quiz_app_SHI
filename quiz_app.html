@@ -14,8 +14,14 @@
       <div id="question"></div>
       <div class="row">
         <textarea id="answer"></textarea>
-        <div id="check" class="invisible"></div>
-        <div style="display: inline-block;">saved</div>
+        <div id="success" class="invisible" style="display: inline-block;">
+          <div id="tick"></div>
+          <div class="text">saved</div>
+        </div>
+        <div id="fail" class="invisible" style="display: inline-block;">
+          <div id="cross"></div>
+          <div class="text">not saved</div>
+        </div>
       </div>
 
       <div class="row">
@@ -27,7 +33,7 @@
       <ul id="resList" class="invisible">
         Answer List:
       </ul>
-      <div id="totalScore" class="invisible"></div>
+      <div id="totalScore" class="invisible">2322</div>
     </div>
 
     <div id="error_alert" class="alert alert-danger" role="alert" style="display: none">
